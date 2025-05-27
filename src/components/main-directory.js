@@ -250,7 +250,7 @@ export default function MainDirectory() {
                           : item + ", "
                         : ""
                     )
-                  : "Select Hosting Providers"}
+                  : "Select Icon Sets"}
                 {filter.length > 1 ? `... +${filter.length - 1}` : ""}
               </span>
               <svg
