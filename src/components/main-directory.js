@@ -169,9 +169,9 @@ export default function MainDirectory() {
           {recordsCount ? (
             <p>
               This directory contains {recordsCount.toLocaleString()} icons for
-              applications built with React, Angular, Vue, Svelte, and more. No need to
-              install any package—simply copy the SVG and paste it into your
-              application.
+              applications built with React, Angular, Vue, Svelte, and more. No
+              need to install any package—simply copy the SVG and paste it into
+              your application.
             </p>
           ) : (
             <div className="bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] bg-[length:400%_100%] mb-4 lg:mb-0 rounded-md w-full h-5 animate-skeleton"></div>
@@ -241,7 +241,18 @@ export default function MainDirectory() {
               className="cursor-pointer flex justify-between items-center bg-white hover:bg-[#f2f2f2] shadow-[0px_0px_0px_1px_#00000014] px-4 rounded-md w-full h-10 text-[#171717] transition-colors duration-200"
               onClick={() => setFilterDropdownOpen((prev) => !prev)}
             >
-              <span className="font-medium text-left">Select Icon Sets</span>
+              <span className="font-medium text-left">
+                {filter.length !== 0
+                  ? filter.map((item, index) =>
+                      index < 1
+                        ? index === filter.length - 1
+                          ? item
+                          : item + ", "
+                        : ""
+                    )
+                  : "Select Hosting Providers"}
+                {filter.length > 1 ? `... +${filter.length - 1}` : ""}
+              </span>
               <svg
                 className="relative top-px"
                 height="16"
