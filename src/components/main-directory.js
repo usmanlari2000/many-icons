@@ -349,7 +349,7 @@ export default function MainDirectory() {
             </div>
           </div>
         </div>
-        <div className="gap-3 grid grid-cols-4 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 xs:grid-cols-6 mt-3">
+        <div className="gap-3 grid grid-cols-4 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 mt-3">
           {icons.length
             ? icons.map((item, index) => (
                 <button

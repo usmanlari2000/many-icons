@@ -39,7 +39,7 @@ export default function OtherDirectoryFallback({ iconSet }) {
             autoComplete="off"
           />
         </div>
-        <div className="gap-3 grid grid-cols-4 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 xs:grid-cols-6 mt-3">
+        <div className="gap-3 grid grid-cols-4 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 mt-3">
           {Array.from({ length: 120 }).map((_, index) => (
             <div
               className="bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] bg-[length:400%_100%] rounded-md h-14 animate-skeleton"
