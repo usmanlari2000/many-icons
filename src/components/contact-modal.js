@@ -145,7 +145,7 @@ export default function ContactModal() {
           </p>
         </div>
         <div className="border-[#ebebeb] bg-[#fafafa] p-6 border-t">
-          <label htmlFor="fullName">Full name</label>
+          <label htmlFor="fullName">Full Name</label>
           <input
             className={`bg-white block mt-2 px-3 rounded-md w-full h-10 text-[#171717] focus:outline-0 ${
               error.fullName
@@ -183,7 +183,7 @@ export default function ContactModal() {
               The full name is required
             </span>
           </div>
-          <label htmlFor="emailAddress">Email address</label>
+          <label htmlFor="emailAddress">Email Address</label>
           <input
             className={`bg-white block mt-2 px-3 rounded-md w-full h-10 text-[#171717] focus:outline-0 ${
               error.emailAddress
@@ -324,7 +324,7 @@ export default function ContactModal() {
           </p>
         </div>
         <div className="border-[#ebebeb] bg-[#fafafa] p-6 border-t">
-          <label htmlFor="fullName">Full name</label>
+          <label htmlFor="fullName">Full Name</label>
           <input
             className={`bg-white block mt-2 px-3 rounded-md w-full h-10 text-[#171717] focus:outline-0 ${
               error.fullName
@@ -361,7 +361,7 @@ export default function ContactModal() {
               The full name is required
             </span>
           </div>
-          <label htmlFor="emailAddress">Email address</label>
+          <label htmlFor="emailAddress">Email Address</label>
           <input
             className={`bg-white block mt-2 px-3 rounded-md w-full h-10 text-[#171717] focus:outline-0 ${
               error.emailAddress
