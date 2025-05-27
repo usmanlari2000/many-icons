@@ -62,9 +62,9 @@ export default function SetsDirectory() {
           {recordsCount ? (
             <p>
               This directory contains {recordsCount.toLocaleString()} icon sets
-              for applications built with React, Angular, Vue, and more. No need
-              to install any package—simply copy the SVG and paste it into your
-              application.
+              for applications built with React, Angular, Vue, Svelte, and more.
+              No need to install any package—simply copy the SVG and paste it
+              into your application.
             </p>
           ) : (
             <div className="bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] bg-[length:400%_100%] mb-4 lg:mb-0 rounded-md w-full h-5 animate-skeleton"></div>

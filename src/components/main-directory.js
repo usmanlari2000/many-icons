@@ -169,7 +169,7 @@ export default function MainDirectory() {
           {recordsCount ? (
             <p>
               This directory contains {recordsCount.toLocaleString()} icons for
-              applications built with React, Angular, Vue, and more. No need to
+              applications built with React, Angular, Vue, Svelte, and more. No need to
               install any package—simply copy the SVG and paste it into your
               application.
             </p>

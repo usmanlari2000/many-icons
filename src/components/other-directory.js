@@ -135,7 +135,7 @@ export default function OtherDirectory({ iconSet }) {
               {iconSet.name.toLowerCase().includes("icon")
                 ? iconSet.name
                 : `${iconSet.name} icons`}{" "}
-              for applications built with React, Angular, Vue, and more. No need
+              for applications built with React, Angular, Vue, Svelte, and more. No need
               to install any package—simply copy the SVG and paste it into your
               application.
             </p>
