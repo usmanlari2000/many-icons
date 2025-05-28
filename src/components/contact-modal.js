@@ -86,12 +86,22 @@ export default function ContactModal() {
 
       setData({ fullName: "", emailAddress: "", message: "" });
       setSubmitting(false);
-      setContactModalOpen(false);
       setContactToastVisible(true);
+      setContactModalOpen(false);
     } catch {
       console.log("Failed to submit");
     }
   };
+
+  useEffect(() => {
+    if (contactToastVisible) {
+      const timer = setTimeout(() => {
+        setContactToastVisible(false);
+      }, 4000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [contactToastVisible]);
 
   const desktopModalRef = useRef();
   const mobileModalRef = useRef();
@@ -111,16 +121,6 @@ export default function ContactModal() {
       mobileModal?.removeEventListener("scroll", mobileScrollHandler);
     };
   }, []);
-
-  useEffect(() => {
-    if (contactToastVisible) {
-      const timer = setTimeout(() => {
-        setContactToastVisible(false);
-      }, 4000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [contactToastVisible]);
 
   return (
     <>

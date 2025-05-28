@@ -42,10 +42,6 @@
 }
 
 @media (min-width: 512px) {
-  .xs\:grid-cols-6 {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-
   .xs\:inline {
     display: inline;
   }

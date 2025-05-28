@@ -59,8 +59,6 @@ export default function OtherDirectory({ iconSet }) {
   }, [debouncedSearch]);
 
   const [recordsCount, setRecordsCount] = useState(0);
-  const [icons, setIcons] = useState([]);
-  const [pagesCount, setPagesCount] = useState(0);
 
   useEffect(() => {
     const handleFetch = async () => {
@@ -80,6 +78,9 @@ export default function OtherDirectory({ iconSet }) {
 
     handleFetch();
   }, []);
+
+  const [icons, setIcons] = useState([]);
+  const [pagesCount, setPagesCount] = useState(0);
 
   useEffect(() => {
     setIcons([]);
@@ -135,9 +136,9 @@ export default function OtherDirectory({ iconSet }) {
               {iconSet.name.toLowerCase().includes("icon")
                 ? iconSet.name
                 : `${iconSet.name} icons`}{" "}
-              for applications built with React, Angular, Vue, Svelte, and more. No need
-              to install any package—simply copy the SVG and paste it into your
-              application.
+              for applications built with React, Angular, Vue, Svelte, and more.
+              No need to install any package—simply copy the SVG and paste it
+              into your application.
             </p>
           ) : (
             <div className="bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] bg-[length:400%_100%] mb-4 lg:mb-0 rounded-md w-full h-5 animate-skeleton"></div>

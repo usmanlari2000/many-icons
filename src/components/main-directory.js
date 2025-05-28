@@ -36,14 +36,14 @@ export default function MainDirectory() {
     setSearching(true);
   };
 
+  const router = useRouter();
+
   const {
     filterDropdownOpen,
     setFilterDropdownOpen,
     setIconModalOpen,
     setClickedItem,
   } = useContext(Context);
-
-  const router = useRouter();
 
   const handleFilterUpdate = (clickedItem) => {
     let updatedFilter;
@@ -85,8 +85,6 @@ export default function MainDirectory() {
 
   const [iconSets, setIconSets] = useState([]);
   const [recordsCount, setRecordsCount] = useState(0);
-  const [icons, setIcons] = useState([]);
-  const [pagesCount, setPagesCount] = useState(0);
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
@@ -122,6 +120,9 @@ export default function MainDirectory() {
 
     handleFetch();
   }, []);
+
+  const [icons, setIcons] = useState([]);
+  const [pagesCount, setPagesCount] = useState(0);
 
   useEffect(() => {
     setIcons([]);
