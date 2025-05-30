@@ -83,9 +83,6 @@ export default function MainDirectory() {
 
   const debouncedSearch = useDebounce(search, 300);
 
-  const [iconSets, setIconSets] = useState([]);
-  const [recordsCount, setRecordsCount] = useState(0);
-
   useEffect(() => {
     const params = new URLSearchParams(searchParams.toString());
 
@@ -97,6 +94,9 @@ export default function MainDirectory() {
 
     router.push(`?${params.toString()}`, { scroll: false });
   }, [debouncedSearch]);
+
+  const [iconSets, setIconSets] = useState([]);
+  const [recordsCount, setRecordsCount] = useState(0);
 
   useEffect(() => {
     const handleFetch = async () => {

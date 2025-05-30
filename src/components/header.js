@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 import { useContext } from "react";
 import { Context } from "@/app/context";
 import Link from "next/link";
-import Image from "next/image";
 
 export default function Header() {
   const pathname = usePathname();
@@ -21,18 +20,11 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center gap-x-4">
             <Link
-              className="flex gap-x-1 font-medium h-10 items-center text-[#171717]"
+              className="flex font-medium h-10 items-center text-[#171717]"
               href="/"
               onClick={() => setMenuOpen(false)}
             >
-              <Image
-                className="h-5 w-5"
-                src="/logo.png"
-                alt="logo"
-                width={1042}
-                height={1042}
-              />
-              <span>ManyIcons</span>
+              ManyIcons
             </Link>
             <Link
               className={`lg:inline hidden transition-colors duration-200 ${

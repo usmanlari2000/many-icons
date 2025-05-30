@@ -9,8 +9,7 @@ export default function IconModal() {
   const { iconModalOpen, setIconModalOpen, clickedItem } = useContext(Context);
 
   const [JSXCopied, setJSXCopied] = useState(false);
-  const [HTMLCopied, setHTMLCopied] = useState(false);
-
+  
   const handleJSXCopy = async () => {
     try {
       await navigator.clipboard.writeText(clickedItem.JSX);
@@ -21,6 +20,8 @@ export default function IconModal() {
       console.log("Failed to copy");
     }
   };
+
+  const [HTMLCopied, setHTMLCopied] = useState(false);
 
   const handleHTMLCopy = async () => {
     try {
