@@ -58,6 +58,8 @@ export default function MainDirectory() {
       updatedFilter = [...filter, clickedItem];
     }
 
+    params.delete("page");
+
     if (updatedFilter.length > 0) {
       params.set("filter", JSON.stringify(updatedFilter));
     } else {
