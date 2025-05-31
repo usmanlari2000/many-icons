@@ -44,13 +44,13 @@ export default function OtherDirectory({ iconSet }) {
   const debouncedSearch = useDebounce(search, 300);
 
   useEffect(() => {
-    params.delete("page");
-
     if (debouncedSearch) {
       params.set("search", debouncedSearch);
     } else {
       params.delete("search");
     }
+
+    params.delete("page");
 
     router.push(`?${params.toString()}`, { scroll: false });
   }, [debouncedSearch]);

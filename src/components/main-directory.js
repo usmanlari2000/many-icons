@@ -58,13 +58,13 @@ export default function MainDirectory() {
       updatedFilter = [...filter, clickedItem];
     }
 
-    params.delete("page");
-
     if (updatedFilter.length > 0) {
       params.set("filter", JSON.stringify(updatedFilter));
     } else {
       params.delete("filter");
     }
+
+    params.delete("page");
 
     router.push(`?${params.toString()}`, { scroll: false });
 
@@ -92,13 +92,13 @@ export default function MainDirectory() {
   const debouncedSearch = useDebounce(search, 300);
 
   useEffect(() => {
-    params.delete("page");
-
     if (debouncedSearch) {
       params.set("search", debouncedSearch);
     } else {
       params.delete("search");
     }
+
+    params.delete("page");
 
     router.push(`?${params.toString()}`, { scroll: false });
   }, [debouncedSearch]);
@@ -142,7 +142,7 @@ export default function MainDirectory() {
       try {
         const url = new URL("/api/icons", window.location.origin);
 
-        url.searchParams.append("search", search);
+        url.searchParams.append("search", debouncedSearch);
         url.searchParams.append("filter", JSON.stringify(filter));
         url.searchParams.append("page", page.toString());
 
