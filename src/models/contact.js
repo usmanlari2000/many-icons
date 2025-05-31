@@ -1,10 +1,6 @@
 import mongoose from "mongoose";
 
 const ContactSchema = new mongoose.Schema({
-  submittedAt: {
-    type: String,
-    required: true,
-  },
   fullName: {
     type: String,
     required: true,

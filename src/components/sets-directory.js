@@ -9,13 +9,14 @@ export default function SetsDirectory() {
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
 
-  const pageParam = Number(searchParams.get("page") || "1");
-  const page = Number.isInteger(pageParam) && pageParam >= 1 ? pageParam : 1;
+  const pageParam = searchParams.get("page");
+  const page = /^[1-9]\d*$/.test(pageParam) ? Number(pageParam) : 1;
 
   const router = useRouter();
 
   const handlePageUpdate = () => {
     params.set("page", (page + 1).toString());
+
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
@@ -55,8 +56,8 @@ export default function SetsDirectory() {
   return (
     <main className="bg-[#fafafa]">
       <div className="border-[#00000014] border-b">
-        <div className="mx-auto px-4 py-10 max-w-screen-lg">
-          <h1 className="mb-4 font-medium text-[#171717] text-[32px] leading-10">
+        <div className="max-w-screen-lg mx-auto px-4 py-10">
+          <h1 className="font-medium leading-10 mb-4 text-[#171717] text-[32px]">
             Icon Sets Directory
           </h1>
           {recordsCount ? (
@@ -67,26 +68,26 @@ export default function SetsDirectory() {
               into your application.
             </p>
           ) : (
-            <div className="bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] bg-[length:400%_100%] mb-4 lg:mb-0 rounded-md w-full h-5 animate-skeleton"></div>
+            <div className="animate-skeleton bg-[length:400%_100%] bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] h-5 lg:mb-0 mb-4 rounded-md w-full"></div>
           )}
         </div>
       </div>
-      <div className="mx-auto px-4 py-6 max-w-screen-lg">
-        <div className="bg-white shadow-[0px_0px_0px_1px_#00000014] rounded-md">
+      <div className="max-w-screen-lg mx-auto px-4 py-6">
+        <div className="bg-white rounded-md shadow-[0px_0px_0px_1px_#00000014]">
           {iconSets.length
             ? iconSets.map((item, index) => (
                 <div
-                  className={`flex justify-between items-center p-4 ${
+                  className={`flex items-center justify-between p-4 ${
                     index !== iconSets.length - 1
-                      ? "border-b border-[#00000014]"
+                      ? "border-[#00000014] border-b"
                       : ""
                   }`}
                   key={index}
                 >
-                  <div className="flex items-center gap-x-4">
-                    <div className="relative flex justify-center items-center bg-[#f2f2f2] rounded-full w-8 h-8">
+                  <div className="flex gap-x-4 items-center">
+                    <div className="bg-[#f2f2f2] flex h-8 items-center justify-center relative rounded-full w-8">
                       <svg
-                        className="w-4 h-4 text-[#171717]"
+                        className="h-4 text-[#171717] w-4"
                         stroke="currentColor"
                         fill="currentColor"
                         strokeWidth="0"
@@ -102,16 +103,16 @@ export default function SetsDirectory() {
                       <span className="font-medium text-[#171717]">
                         {item.name}
                       </span>
-                      <span className="xs:inline relative -top-[3px] hidden">
+                      <span className="-top-[3px] hidden relative xs:inline">
                         .
                       </span>
-                      <span className="xs:inline hidden">
+                      <span className="hidden xs:inline">
                         {item.iconsCount} icons
                       </span>
                     </div>
                   </div>
                   <Link
-                    className="flex items-center bg-white hover:bg-[#f2f2f2] shadow-[0px_0px_0px_1px_#00000014] px-4 rounded-md h-8 font-medium text-[#171717] transition-colors duration-200"
+                    className="bg-white duration-200 flex font-medium h-8 hover:bg-[#f2f2f2] items-center px-4 rounded-md shadow-[0px_0px_0px_1px_#00000014] text-[#171717] transition-colors"
                     href={`/sets/${toSlug(item.name)}`}
                   >
                     Visit
@@ -120,32 +121,32 @@ export default function SetsDirectory() {
               ))
             : Array.from({ length: 12 }).map((_, index) => (
                 <div
-                  className={`flex justify-between items-center p-4 ${
-                    index !== 11 ? "border-b border-[#00000014]" : ""
+                  className={`flex items-center justify-between p-4 ${
+                    index !== 11 ? "border-[#00000014] border-b" : ""
                   }`}
                   key={index}
                 >
-                  <div className="flex items-center gap-x-4">
-                    <div className="bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] bg-[length:400%_100%] rounded-full w-8 h-8 animate-skeleton"></div>
-                    <div className="bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] bg-[length:400%_100%] rounded-md w-40 h-5 animate-skeleton"></div>
+                  <div className="flex gap-x-4 items-center">
+                    <div className="animate-skeleton bg-[length:400%_100%] bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] h-8 rounded-full w-8"></div>
+                    <div className="animate-skeleton bg-[length:400%_100%] bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] h-5 rounded-md w-40"></div>
                   </div>
-                  <div className="bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] bg-[length:400%_100%] rounded-md w-16 h-8 animate-skeleton"></div>
+                  <div className="animate-skeleton bg-[length:400%_100%] bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] h-8 rounded-md w-16"></div>
                 </div>
               ))}
         </div>
         {pagesCount && page <= pagesCount ? (
           <button
-            className={`cursor-pointer bg-white hover:bg-[#f2f2f2] shadow-[0px_0px_0px_1px_#00000014] mt-3 px-4 rounded-md w-full h-10 font-medium text-[#171717] transition-colors duration-200 ${
+            className={`bg-white cursor-pointer duration-200 font-medium h-10 hover:bg-[#f2f2f2] mt-3 px-4 rounded-md shadow-[0px_0px_0px_1px_#00000014] text-[#171717] transition-colors w-full ${
               page === pagesCount
                 ? "hidden"
-                : "flex justify-center items-center"
+                : "flex items-center justify-center"
             }`}
             onClick={handlePageUpdate}
           >
             Show More
           </button>
         ) : (
-          <div className="bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] bg-[length:400%_100%] mt-3 rounded-md h-10 animate-skeleton"></div>
+          <div className="animate-skeleton bg-[length:400%_100%] bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] h-10 mt-3 rounded-md"></div>
         )}
       </div>
     </main>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useContext, useRef, useEffect } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { Context } from "@/app/context";
 
 export default function ContactModal() {
@@ -93,6 +93,16 @@ export default function ContactModal() {
     }
   };
 
+  useEffect(() => {
+    if (contactToastVisible) {
+      const timer = setTimeout(() => {
+        setContactToastVisible(false);
+      }, 4000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [contactToastVisible]);
+
   const desktopModalRef = useRef();
   const mobileModalRef = useRef();
 
@@ -112,45 +122,35 @@ export default function ContactModal() {
     };
   }, []);
 
-  useEffect(() => {
-    if (contactToastVisible) {
-      const timer = setTimeout(() => {
-        setContactToastVisible(false);
-      }, 4000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [contactToastVisible]);
-
   return (
     <>
       <div
-        className={`top-0 left-0 z-30 fixed bg-[#0006] sm:bg-white w-full h-full transition-opacity duration-200 ${
+        className={`bg-[#0006] duration-200 fixed h-full left-0 sm:bg-white top-0 transition-opacity w-full z-30 ${
           contactModalOpen ? "sm:opacity-80" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setContactModalOpen(false)}
       ></div>
       <div
-        className={`sm:block top-1/2 left-1/2 z-40 fixed hidden bg-white shadow-[0px_0px_0px_1px_#00000014,0px_1px_1px_0px_#00000005,0px_4px_8px_-4px_#0000000a,0px_16px_24px_-8px_#0000000f] rounded-xl w-[500px] h-fit max-h-[min(520px,75%)] transition-[opacity,transform] -translate-x-1/2 -translate-y-1/2 duration-200 overflow-auto ${
+        className={`-translate-x-1/2 -translate-y-1/2 bg-white duration-200 fixed h-fit hidden left-1/2 max-h-[min(520px,75%)] overflow-auto rounded-xl shadow-[0px_0px_0px_1px_#00000014,0px_1px_1px_0px_#00000005,0px_4px_8px_-4px_#0000000a,0px_16px_24px_-8px_#0000000f] sm:block top-1/2 transition-[opacity,transform] w-[500px] z-40 ${
           contactModalOpen ? "" : "opacity-0 pointer-events-none scale-90"
         }`}
         ref={desktopModalRef}
       >
         <div className="p-6">
-          <h2 className="mb-6 font-semibold text-[#171717] text-2xl">
+          <h2 className="font-semibold mb-6 text-[#171717] text-2xl">
             Contact Us
           </h2>
           <p className="text-[#7d7d7d]">
             If you have any questions, feel free to reach out to us.
           </p>
         </div>
-        <div className="border-[#ebebeb] bg-[#fafafa] p-6 border-t">
+        <div className="bg-[#fafafa] border-[#ebebeb] border-t p-6">
           <label htmlFor="fullName">Full Name</label>
           <input
-            className={`bg-white block mt-2 px-3 rounded-md w-full h-10 text-[#171717] focus:outline-0 ${
+            className={`bg-white block focus:outline-0 h-10 mt-2 px-3 rounded-md text-[#171717] w-full ${
               error.fullName
-                ? "shadow-[0px_0px_0px_1px_#cb2a2f,0px_0px_0px_4px_#ffe6e6] mb-4"
-                : "shadow-[0px_0px_0px_1px_#00000014] focus:shadow-[0px_0px_0px_1px_#00000056,0px_0px_0px_4px_#00000029] mb-6"
+                ? "mb-4 shadow-[0px_0px_0px_1px_#cb2a2f,0px_0px_0px_4px_#ffe6e6]"
+                : "focus:shadow-[0px_0px_0px_1px_#00000056,0px_0px_0px_4px_#00000029] mb-6 shadow-[0px_0px_0px_1px_#00000014]"
             }`}
             type="text"
             id="fullName"
@@ -162,7 +162,7 @@ export default function ContactModal() {
           />
           <div
             className={`mb-6 ${
-              error.fullName ? "flex items-center gap-x-2" : "hidden"
+              error.fullName ? "flex gap-x-2 items-center" : "hidden"
             }`}
           >
             <svg
@@ -185,10 +185,10 @@ export default function ContactModal() {
           </div>
           <label htmlFor="emailAddress">Email Address</label>
           <input
-            className={`bg-white block mt-2 px-3 rounded-md w-full h-10 text-[#171717] focus:outline-0 ${
+            className={`bg-white block focus:outline-0 h-10 mt-2 px-3 rounded-md text-[#171717] w-full ${
               error.emailAddress
-                ? "shadow-[0px_0px_0px_1px_#cb2a2f,0px_0px_0px_4px_#ffe6e6] mb-4"
-                : "shadow-[0px_0px_0px_1px_#00000014] focus:shadow-[0px_0px_0px_1px_#00000056,0px_0px_0px_4px_#00000029] mb-6"
+                ? "mb-4 shadow-[0px_0px_0px_1px_#cb2a2f,0px_0px_0px_4px_#ffe6e6]"
+                : "focus:shadow-[0px_0px_0px_1px_#00000056,0px_0px_0px_4px_#00000029] mb-6 shadow-[0px_0px_0px_1px_#00000014]"
             }`}
             type="text"
             id="emailAddress"
@@ -200,7 +200,7 @@ export default function ContactModal() {
           />
           <div
             className={`mb-6 ${
-              error.emailAddress ? "flex items-center gap-x-2" : "hidden"
+              error.emailAddress ? "flex gap-x-2 items-center" : "hidden"
             }`}
           >
             <svg
@@ -225,10 +225,10 @@ export default function ContactModal() {
           </div>
           <label htmlFor="message">Message</label>
           <textarea
-            className={`bg-white block mt-2 px-3 py-2.5 rounded-md w-full text-[#171717] focus:outline-0 resize-none ${
+            className={`bg-white block focus:outline-0 mt-2 px-3 py-2.5 resize-none rounded-md text-[#171717] w-full ${
               error.message
-                ? "shadow-[0px_0px_0px_1px_#cb2a2f,0px_0px_0px_4px_#ffe6e6] mb-4"
-                : "shadow-[0px_0px_0px_1px_#00000014] focus:shadow-[0px_0px_0px_1px_#00000056,0px_0px_0px_4px_#00000029]"
+                ? "mb-4 shadow-[0px_0px_0px_1px_#cb2a2f,0px_0px_0px_4px_#ffe6e6]"
+                : "focus:shadow-[0px_0px_0px_1px_#00000056,0px_0px_0px_4px_#00000029] shadow-[0px_0px_0px_1px_#00000014]"
             }`}
             id="message"
             name="message"
@@ -238,7 +238,7 @@ export default function ContactModal() {
             onChange={handleChange}
           ></textarea>
           <div
-            className={error.message ? "flex items-center gap-x-2" : "hidden"}
+            className={error.message ? "flex gap-x-2 items-center" : "hidden"}
           >
             <svg
               className="text-[#cb2a2f]"
@@ -260,7 +260,7 @@ export default function ContactModal() {
           </div>
         </div>
         <div
-          className="bottom-0 left-0 sticky flex justify-between border-[#ebebeb] p-4 border-t"
+          className="border-[#ebebeb] border-t bottom-0 flex justify-between left-0 p-4 sticky"
           style={{
             backgroundColor: `hsl(0, 0%, ${100 - scrollPercent / 50}%)`,
             boxShadow: `rgba(0, 0, 0, ${Math.max(
@@ -270,22 +270,22 @@ export default function ContactModal() {
           }}
         >
           <button
-            className="cursor-pointer flex items-center bg-white hover:bg-[#f2f2f2] shadow-[0px_0px_0px_1px_#00000014] px-4 rounded-md h-10 font-medium text-[#171717] transition-colors duration-200"
+            className="bg-white cursor-pointer duration-200 flex font-medium h-10 hover:bg-[#f2f2f2] items-center px-4 rounded-md shadow-[0px_0px_0px_1px_#00000014] text-[#171717] transition-colors"
             onClick={() => setContactModalOpen(false)}
           >
             Close
           </button>
           <button
-            className={`flex items-center gap-x-2 px-4 rounded-md h-10 font-medium transition-[background-color,color,box-shadow] duration-200 ${
+            className={`duration-200 flex font-medium gap-x-2 h-10 items-center px-4 rounded-md transition-[background-color,color,box-shadow] ${
               submitting
-                ? "bg-[#f2f2f2] shadow-[0px_0px_0px_1px_#ebebeb] text-[#8f8f8f] cursor-not-allowed"
-                : "bg-[#171717] hover:bg-[#383838] shadow-[0px_0px_0px_1px_#00000000] text-white cursor-pointer"
+                ? "bg-[#f2f2f2] cursor-not-allowed shadow-[0px_0px_0px_1px_#ebebeb] text-[#8f8f8f]"
+                : "bg-[#171717] cursor-pointer hover:bg-[#383838] shadow-[0px_0px_0px_1px_#00000000] text-white"
             }`}
             disabled={submitting}
             onClick={handleSubmit}
           >
             <div
-              className={`relative top-2 left-2 w-4 h-4 ${
+              className={`h-4 left-2 relative top-2 w-4 ${
                 submitting ? "" : "hidden"
               }`}
             >
@@ -295,7 +295,7 @@ export default function ContactModal() {
 
                 return (
                   <div
-                    className="top-[-3.9%] left-[-10%] absolute bg-[#666] rounded-md w-[24%] h-[8%] animate-spinner"
+                    className="absolute animate-spinner bg-[#666] h-[8%] left-[-10%] rounded-md top-[-3.9%] w-[24%]"
                     key={index}
                     style={{
                       animationDelay: `${delay}ms`,
@@ -310,26 +310,26 @@ export default function ContactModal() {
         </div>
       </div>
       <div
-        className={`-bottom-px left-0 z-40 fixed sm:hidden bg-white shadow-[0px_0px_0px_1px_#00000014,0px_1px_1px_0px_#00000005,0px_4px_8px_-4px_#0000000a,0px_16px_24px_-8px_#0000000f] rounded-t-lg w-full h-fit max-h-[min(520px,75%)] transition-transform duration-200 overflow-auto ${
+        className={`-bottom-px bg-white duration-200 fixed h-fit left-0 max-h-[min(520px,75%)] overflow-auto rounded-t-lg shadow-[0px_0px_0px_1px_#00000014,0px_1px_1px_0px_#00000005,0px_4px_8px_-4px_#0000000a,0px_16px_24px_-8px_#0000000f] sm:hidden transition-transform w-full z-40 ${
           contactModalOpen ? "" : "translate-y-full"
         }`}
         ref={mobileModalRef}
       >
         <div className="p-6">
-          <h2 className="mb-6 font-semibold text-[#171717] text-2xl">
+          <h2 className="font-semibold mb-6 text-[#171717] text-2xl">
             Contact Us
           </h2>
           <p className="text-[#7d7d7d]">
             If you have any questions, feel free to reach out to us.
           </p>
         </div>
-        <div className="border-[#ebebeb] bg-[#fafafa] p-6 border-t">
+        <div className="bg-[#fafafa] border-[#ebebeb] border-t p-6">
           <label htmlFor="fullName">Full Name</label>
           <input
-            className={`bg-white block mt-2 px-3 rounded-md w-full h-10 text-[#171717] focus:outline-0 ${
+            className={`bg-white block focus:outline-0 h-10 mt-2 px-3 rounded-md text-[#171717] w-full ${
               error.fullName
-                ? "shadow-[0px_0px_0px_1px_#cb2a2f,0px_0px_0px_4px_#ffe6e6] mb-4"
-                : "shadow-[0px_0px_0px_1px_#00000014] focus:shadow-[0px_0px_0px_1px_#00000056,0px_0px_0px_4px_#00000029] mb-6"
+                ? "mb-4 shadow-[0px_0px_0px_1px_#cb2a2f,0px_0px_0px_4px_#ffe6e6]"
+                : "focus:shadow-[0px_0px_0px_1px_#00000056,0px_0px_0px_4px_#00000029] mb-6 shadow-[0px_0px_0px_1px_#00000014]"
             }`}
             type="text"
             id="fullName"
@@ -340,7 +340,7 @@ export default function ContactModal() {
           />
           <div
             className={`mb-6 ${
-              error.fullName ? "flex items-center gap-x-2" : "hidden"
+              error.fullName ? "flex gap-x-2 items-center" : "hidden"
             }`}
           >
             <svg
@@ -363,10 +363,10 @@ export default function ContactModal() {
           </div>
           <label htmlFor="emailAddress">Email Address</label>
           <input
-            className={`bg-white block mt-2 px-3 rounded-md w-full h-10 text-[#171717] focus:outline-0 ${
+            className={`bg-white block focus:outline-0 h-10 mt-2 px-3 rounded-md text-[#171717] w-full ${
               error.emailAddress
-                ? "shadow-[0px_0px_0px_1px_#cb2a2f,0px_0px_0px_4px_#ffe6e6] mb-4"
-                : "shadow-[0px_0px_0px_1px_#00000014] focus:shadow-[0px_0px_0px_1px_#00000056,0px_0px_0px_4px_#00000029] mb-6"
+                ? "mb-4 shadow-[0px_0px_0px_1px_#cb2a2f,0px_0px_0px_4px_#ffe6e6]"
+                : "focus:shadow-[0px_0px_0px_1px_#00000056,0px_0px_0px_4px_#00000029] mb-6 shadow-[0px_0px_0px_1px_#00000014]"
             }`}
             type="text"
             id="emailAddress"
@@ -377,7 +377,7 @@ export default function ContactModal() {
           />
           <div
             className={`mb-6 ${
-              error.emailAddress ? "flex items-center gap-x-2" : "hidden"
+              error.emailAddress ? "flex gap-x-2 items-center" : "hidden"
             }`}
           >
             <svg
@@ -402,10 +402,10 @@ export default function ContactModal() {
           </div>
           <label htmlFor="message">Message</label>
           <textarea
-            className={`bg-white block mt-2 px-3 py-2.5 rounded-md w-full text-[#171717] focus:outline-0 resize-none ${
+            className={`bg-white block focus:outline-0 mt-2 px-3 py-2.5 resize-none rounded-md text-[#171717] w-full ${
               error.message
-                ? "shadow-[0px_0px_0px_1px_#cb2a2f,0px_0px_0px_4px_#ffe6e6] mb-4"
-                : "shadow-[0px_0px_0px_1px_#00000014] focus:shadow-[0px_0px_0px_1px_#00000056,0px_0px_0px_4px_#00000029]"
+                ? "mb-4 shadow-[0px_0px_0px_1px_#cb2a2f,0px_0px_0px_4px_#ffe6e6]"
+                : "focus:shadow-[0px_0px_0px_1px_#00000056,0px_0px_0px_4px_#00000029] shadow-[0px_0px_0px_1px_#00000014]"
             }`}
             id="message"
             name="message"
@@ -415,7 +415,7 @@ export default function ContactModal() {
             onChange={handleChange}
           ></textarea>
           <div
-            className={error.message ? "flex items-center gap-x-2" : "hidden"}
+            className={error.message ? "flex gap-x-2 items-center" : "hidden"}
           >
             <svg
               className="text-[#cb2a2f]"
@@ -437,7 +437,7 @@ export default function ContactModal() {
           </div>
         </div>
         <div
-          className="bottom-0 left-0 sticky flex justify-between border-[#ebebeb] p-4 border-t"
+          className="border-[#ebebeb] border-t bottom-0 flex justify-between left-0 p-4 sticky"
           style={{
             backgroundColor: `hsl(0, 0%, ${100 - scrollPercent / 50}%)`,
             boxShadow: `rgba(0, 0, 0, ${Math.max(
@@ -447,22 +447,22 @@ export default function ContactModal() {
           }}
         >
           <button
-            className="cursor-pointer flex items-center bg-white hover:bg-[#f2f2f2] shadow-[0px_0px_0px_1px_#00000014] px-4 rounded-md font-medium text-[#171717] transition-colors duration-200"
+            className="bg-white cursor-pointer duration-200 flex font-medium hover:bg-[#f2f2f2] items-center px-4 rounded-md shadow-[0px_0px_0px_1px_#00000014] text-[#171717] transition-colors"
             onClick={() => setContactModalOpen(false)}
           >
             Close
           </button>
           <button
-            className={`flex items-center gap-x-2 px-4 rounded-md h-10 font-medium transition-[background-color,color,box-shadow] duration-200 ${
+            className={`duration-200 flex font-medium gap-x-2 h-10 items-center px-4 rounded-md transition-[background-color,color,box-shadow] ${
               submitting
-                ? "bg-[#f2f2f2] shadow-[0px_0px_0px_1px_#ebebeb] text-[#8f8f8f] cursor-not-allowed"
-                : "bg-[#171717] hover:bg-[#383838] shadow-[0px_0px_0px_1px_#00000000] text-white cursor-pointer"
+                ? "bg-[#f2f2f2] cursor-not-allowed shadow-[0px_0px_0px_1px_#ebebeb] text-[#8f8f8f]"
+                : "bg-[#171717] cursor-pointer hover:bg-[#383838] shadow-[0px_0px_0px_1px_#00000000] text-white"
             }`}
             disabled={submitting}
             onClick={handleSubmit}
           >
             <div
-              className={`relative top-2 left-2 w-4 h-4 ${
+              className={`h-4 left-2 relative top-2 w-4 ${
                 submitting ? "" : "hidden"
               }`}
             >
@@ -472,7 +472,7 @@ export default function ContactModal() {
 
                 return (
                   <div
-                    className="top-[-3.9%] left-[-10%] absolute bg-[#666] rounded-md w-[24%] h-[8%] animate-spinner"
+                    className="absolute animate-spinner bg-[#666] h-[8%] left-[-10%] rounded-md top-[-3.9%] w-[24%]"
                     key={index}
                     style={{
                       animationDelay: `${delay}ms`,
@@ -487,21 +487,19 @@ export default function ContactModal() {
         </div>
       </div>
       <div
-        className={`fixed bottom-4 right-4 z-40 max-w-[min(420px,90%)] w-full p-4 rounded-xl bg-[#0072F5]
-        shadow-[0px_0px_0px_1px_#00000014,_0px_1px_1px_0px_#00000005,_0px_4px_8px_-4px_#0000000a,_0px_16px_24px_-8px_#0000000f]
-        transition-all duration-500
+        className={`bg-[#0072F5] bottom-4 duration-500 fixed max-w-[min(420px,90%)] p-4 right-4 rounded-xl shadow-[0px_0px_0px_1px_#00000014,_0px_1px_1px_0px_#00000005,_0px_4px_8px_-4px_#0000000a,_0px_16px_24px_-8px_#0000000f] transition-all w-full z-40
         ${
           contactToastVisible
             ? "opacity-100 translate-y-0"
-            : "opacity-0 translate-y-8 pointer-events-none"
+            : "opacity-0 pointer-events-none translate-y-8"
         }
       `}
       >
-        <div className="h-8 flex items-center justify-between">
-          <p className="text-white font-medium">
+        <div className="flex h-8 items-center justify-between">
+          <p className="font-medium text-white">
             Your message has been sent successfully.
           </p>
-          <button className="cursor-pointer h-full w-8 flex justify-center items-center rounded-md hover:bg-[#0067dc] transition-colors duration-200">
+          <button className="cursor-pointer duration-200 flex h-full hover:bg-[#0067dc] items-center justify-center rounded-md transition-colors w-8">
             <svg
               className="text-white"
               height="16"

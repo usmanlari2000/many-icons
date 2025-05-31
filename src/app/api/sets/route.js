@@ -8,8 +8,8 @@ export async function GET(req) {
 
     const url = new URL(req.url);
 
-    const pageParam = Number(url.searchParams.get("page") || "1");
-    const page = Number.isInteger(pageParam) && pageParam >= 1 ? pageParam : 1;
+    const pageParam = url.searchParams.get("page");
+    const page = /^[1-9]\d*$/.test(pageParam) ? Number(pageParam) : 1;
 
     const recordsCount = (await Icon.distinct("iconSet")).length;
     const pagesCount = Math.ceil(recordsCount / 12);

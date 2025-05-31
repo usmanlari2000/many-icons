@@ -7,8 +7,7 @@ export async function POST(req) {
     await connectToDB();
 
     const data = await req.json();
-    data.submittedAt = new Date().toISOString();
-
+    
     await new Contact(data).save();
 
     return NextResponse.json(

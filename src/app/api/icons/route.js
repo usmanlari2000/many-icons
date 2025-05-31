@@ -8,21 +8,27 @@ export async function GET(req) {
 
     const url = new URL(req.url);
 
-    const search = url.searchParams.get("search") || "";
+    const searchParam = url.searchParams.get("search");
+    const search = searchParam || "";
 
     const filterParam = url.searchParams.get("filter");
     let filter = [];
 
     try {
-      if (/^\[\s*(?:"[^"]*"\s*,\s*)*"[^"]*"\s*\]$/.test(filterParam)) {
-        filter = JSON.parse(filterParam);
+      const parsed = JSON.parse(filterParam);
+
+      if (
+        Array.isArray(parsed) &&
+        parsed.every((item) => typeof item === "string")
+      ) {
+        filter = parsed;
       }
     } catch {
       filter = [];
     }
 
-    const pageParam = Number(url.searchParams.get("page") || "1");
-    const page = Number.isInteger(pageParam) && pageParam >= 1 ? pageParam : 1;
+    const pageParam = url.searchParams.get("page");
+    const page = /^[1-9]\d*$/.test(pageParam) ? Number(pageParam) : 1;
 
     const query = {
       ...(filter.length && { iconSet: { $in: filter } }),

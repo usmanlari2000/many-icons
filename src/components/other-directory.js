@@ -7,29 +7,25 @@ import parse from "html-react-parser";
 
 export default function OtherDirectory({ iconSet }) {
   const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams.toString());
 
-  const searchParam = searchParams.get("search") || "";
-  const [search, setSearch] = useState(searchParam);
+  const searchParam = searchParams.get("search");
+  const [search, setSearch] = useState(searchParam || "");
 
-  const pageParam = Number(searchParams.get("page") || "1");
-  const page = Number.isInteger(pageParam) && pageParam >= 1 ? pageParam : 1;
-
-  const [searching, setSearching] = useState(searchParam ? true : false);
+  const pageParam = searchParams.get("page");
+  const page = /^[1-9]\d*$/.test(pageParam) ? Number(pageParam) : 1;
 
   const handleSearchUpdate = (event) => {
     const { value } = event.target;
 
     setSearch(value);
-    setSearching(true);
   };
 
   const router = useRouter();
 
   const handlePageUpdate = () => {
-    const params = new URLSearchParams(searchParams.toString());
-
-    params.set("search", search);
     params.set("page", (page + 1).toString());
+
     router.push(`?${params.toString()}`, { scroll: false });
   };
 
@@ -38,6 +34,7 @@ export default function OtherDirectory({ iconSet }) {
 
     useEffect(() => {
       const handler = setTimeout(() => setDebounced(value), delay);
+
       return () => clearTimeout(handler);
     }, [value, delay]);
 
@@ -47,7 +44,7 @@ export default function OtherDirectory({ iconSet }) {
   const debouncedSearch = useDebounce(search, 300);
 
   useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
+    params.delete("page");
 
     if (debouncedSearch) {
       params.set("search", debouncedSearch);
@@ -82,6 +79,8 @@ export default function OtherDirectory({ iconSet }) {
   const [icons, setIcons] = useState([]);
   const [pagesCount, setPagesCount] = useState(0);
 
+  const searching = debouncedSearch !== "" && icons.length === 0;
+
   useEffect(() => {
     setIcons([]);
     setPagesCount(0);
@@ -104,10 +103,6 @@ export default function OtherDirectory({ iconSet }) {
 
         setIcons(icons);
         setPagesCount(pagesCount);
-
-        if (icons.length) {
-          setSearching(false);
-        }
       } catch {
         console.log("Failed to fetch");
       }
@@ -123,8 +118,8 @@ export default function OtherDirectory({ iconSet }) {
   return (
     <main className="bg-[#fafafa]">
       <div className="border-[#00000014] border-b">
-        <div className="mx-auto px-4 py-10 max-w-screen-lg">
-          <h1 className="mb-4 font-medium text-[#171717] text-[32px] leading-10">
+        <div className="max-w-screen-lg mx-auto px-4 py-10">
+          <h1 className="font-medium leading-10 mb-4 text-[#171717] text-[32px]">
             {iconSet.name.toLowerCase().includes("icon")
               ? iconSet.name
               : `${iconSet.name} Icons`}{" "}
@@ -141,27 +136,27 @@ export default function OtherDirectory({ iconSet }) {
               into your application.
             </p>
           ) : (
-            <div className="bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] bg-[length:400%_100%] mb-4 lg:mb-0 rounded-md w-full h-5 animate-skeleton"></div>
+            <div className="animate-skeleton bg-[length:400%_100%] bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] h-5 lg:mb-0 mb-4 rounded-md w-full"></div>
           )}
         </div>
       </div>
-      <div className="mx-auto px-4 py-6 max-w-screen-lg">
+      <div className="max-w-screen-lg mx-auto px-4 py-6">
         <div
-          className={`flex bg-white rounded-md h-10 transition-[box-shadow] duration-200 overflow-hidden ${
+          className={`bg-white duration-200 flex h-10 overflow-hidden rounded-md transition-[box-shadow] ${
             searchFocused
               ? "shadow-[0px_0px_0px_1px_#00000056,0px_0px_0px_4px_#00000029]"
-              : "shadow-[0px_0px_0px_1px_#00000014] hover:shadow-[0px_0px_0px_1px_#00000029]"
+              : "hover:shadow-[0px_0px_0px_1px_#00000029] shadow-[0px_0px_0px_1px_#00000014]"
           }`}
         >
-          <label className="flex items-center px-3 h-full" htmlFor="search">
+          <label className="flex h-full items-center px-3" htmlFor="search">
             {searching ? (
-              <div className="relative top-2 left-2 w-4 h-4">
+              <div className="h-4 left-2 relative top-2 w-4">
                 {Array.from({ length: 12 }).map((_, index) => {
                   const angle = index * -30;
                   const delay = -(index * 100);
                   return (
                     <div
-                      className="top-[-3.9%] left-[-10%] absolute bg-[#666] rounded-md w-[24%] h-[8%] animate-spinner"
+                      className="absolute animate-spinner bg-[#666] h-[8%] left-[-10%] rounded-md top-[-3.9%] w-[24%]"
                       key={index}
                       style={{
                         animationDelay: `${delay}ms`,
@@ -189,7 +184,7 @@ export default function OtherDirectory({ iconSet }) {
             )}
           </label>
           <input
-            className="flex-1 pr-3 h-full text-[#171717] focus:outline-0"
+            className="flex-1 focus:outline-0 h-full pr-3 text-[#171717]"
             type="text"
             id="search"
             name="search"
@@ -202,11 +197,11 @@ export default function OtherDirectory({ iconSet }) {
           />
         </div>
 
-        <div className="gap-3 grid grid-cols-4 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 mt-3">
+        <div className="gap-3 grid grid-cols-4 lg:grid-cols-12 md:grid-cols-10 mt-3 sm:grid-cols-8">
           {icons.length
             ? icons.map((item, index) => (
                 <button
-                  className="cursor-pointer flex justify-center items-center border-[#00000014] hover:border-[#00000029] bg-white shadow-[0px_2px_2px_0px_#0000000a] border rounded-lg h-14 text-[#171717] text-lg transition-colors duration-200"
+                  className="bg-white border border-[#00000014] cursor-pointer duration-200 flex h-14 hover:border-[#00000029] items-center justify-center rounded-lg shadow-[0px_2px_2px_0px_#0000000a] text-[#171717] text-lg transition-colors"
                   key={index}
                   onClick={() => {
                     setClickedItem(item);
@@ -218,24 +213,24 @@ export default function OtherDirectory({ iconSet }) {
               ))
             : Array.from({ length: 120 }).map((_, index) => (
                 <div
-                  className="bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] bg-[length:400%_100%] rounded-md h-14 animate-skeleton"
+                  className="animate-skeleton bg-[length:400%_100%] bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] h-14 rounded-md"
                   key={index}
                 ></div>
               ))}
         </div>
         {pagesCount && page <= pagesCount ? (
           <button
-            className={`cursor-pointer bg-white hover:bg-[#f2f2f2] shadow-[0px_0px_0px_1px_#00000014] mt-3 px-4 rounded-md w-full h-10 font-medium text-[#171717] transition-colors duration-200 ${
+            className={` ${
               page === pagesCount
                 ? "hidden"
-                : "flex justify-center items-center"
+                : "flex items-center justify-center"
             }`}
             onClick={handlePageUpdate}
           >
             Show More
           </button>
         ) : (
-          <div className="bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] bg-[length:400%_100%] mt-3 rounded-md h-10 animate-skeleton"></div>
+          <div className="animate-skeleton bg-[length:400%_100%] bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] h-10 mt-3 rounded-md"></div>
         )}
       </div>
     </main>

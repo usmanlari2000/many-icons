@@ -12,13 +12,13 @@ export default function Header() {
 
   return (
     <header
-      className={`-top-px left-0 z-20 sticky bg-white shadow-[inset_0px_-1px_0px_#00000014] ${
+      className={`-top-px bg-white left-0 shadow-[inset_0px_-1px_0px_#00000014] sticky z-20 ${
         menuOpen ? "h-screen lg:h-fit" : ""
       }`}
     >
-      <div className="mx-auto px-4 max-w-screen-lg">
-        <div className="flex justify-between items-center h-16">
-          <div className="flex items-center gap-x-4">
+      <div className="max-w-screen-lg mx-auto px-4">
+        <div className="flex h-16 items-center justify-between">
+          <div className="flex gap-x-4 items-center">
             <Link
               className="flex font-medium h-10 items-center text-[#171717]"
               href="/"
@@ -27,7 +27,7 @@ export default function Header() {
               ManyIcons
             </Link>
             <Link
-              className={`lg:inline hidden transition-colors duration-200 ${
+              className={`duration-200 hidden lg:inline transition-colors ${
                 pathname === "/sets" ? "text-[#171717]" : "hover:text-[#171717]"
               }`}
               href="/sets"
@@ -36,7 +36,7 @@ export default function Header() {
             </Link>
           </div>
           <button
-            className="cursor-pointer lg:flex items-center hidden bg-[#171717] hover:bg-[#383838] shadow-[0px_0px_0px_1px_#00000000] px-4 rounded-md h-10 font-medium text-white transition-colors duration-200"
+            className="bg-[#171717] cursor-pointer duration-200 font-medium h-10 hidden hover:bg-[#383838] items-center lg:flex px-4 rounded-md shadow-[0px_0px_0px_1px_#00000000] text-white transition-colors"
             onClick={() => {
               setContactModalOpen(true);
               setMenuOpen(false);
@@ -45,20 +45,20 @@ export default function Header() {
             Contact Us
           </button>
           <button
-            className="cursor-pointer flex flex-col justify-center items-center border-[#00000014] lg:hidden border rounded-full w-8 h-8"
+            className="border border-[#00000014] cursor-pointer flex flex-col h-8 items-center justify-center lg:hidden rounded-full w-8"
             onClick={() => setMenuOpen((prev) => !prev)}
           >
             <div
-              className={`bg-[#666] w-[14px] h-[1.5px] transition-transform duration-200 ${
+              className={`bg-[#666] duration-200 h-[1.5px] transition-transform w-[14px] ${
                 menuOpen
-                  ? "translate-y-[0.5px] rotate-45 scale-x-110"
+                  ? "rotate-45 scale-x-110 translate-y-[0.5px]"
                   : "translate-y-[-2.75px]"
               }`}
             ></div>
             <div
-              className={`bg-[#666] w-[14px] h-[1.5px] transition-transform duration-200 ${
+              className={`bg-[#666] duration-200 h-[1.5px] transition-transform w-[14px] ${
                 menuOpen
-                  ? "translate-y-[-0.5px] -rotate-45 scale-x-110"
+                  ? "-rotate-45 scale-x-110 translate-y-[-0.5px]"
                   : "translate-y-[2.75px]"
               }`}
             ></div>
@@ -67,12 +67,12 @@ export default function Header() {
         <div
           className={
             menuOpen
-              ? "flex flex-col gap-y-3 border-[#ebebeb] lg:hidden py-3 border-b"
+              ? "border-[#ebebeb] border-b flex flex-col gap-y-3 lg:hidden py-3"
               : "hidden"
           }
         >
           <button
-            className="cursor-pointer flex justify-center items-center bg-[#171717] hover:bg-[#383838] shadow-[0px_0px_0px_1px_#00000000] px-4 rounded-md h-10 font-medium text-white transition-colors duration-200"
+            className="bg-[#171717] cursor-pointer duration-200 flex font-medium h-10 hover:bg-[#383838] items-center justify-center px-4 rounded-md shadow-[0px_0px_0px_1px_#00000000] text-white transition-colors"
             onClick={() => {
               setContactModalOpen(true);
               setMenuOpen(false);
@@ -81,7 +81,7 @@ export default function Header() {
             Contact Us
           </button>
           <Link
-            className={`flex items-center h-10 transition-colors duration-200 ${
+            className={`duration-200 flex h-10 items-center transition-colors ${
               pathname === "/sets" ? "text-[#171717]" : "hover:text-[#171717]"
             }`}
             href="/sets"

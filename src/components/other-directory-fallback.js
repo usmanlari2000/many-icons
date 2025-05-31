@@ -2,19 +2,19 @@ export default function OtherDirectoryFallback({ iconSet }) {
   return (
     <main className="bg-[#fafafa]">
       <div className="border-[#00000014] border-b">
-        <div className="mx-auto px-4 py-10 max-w-screen-lg">
-          <h1 className="mb-4 font-medium text-[#171717] text-[32px] leading-10">
+        <div className="max-w-screen-lg mx-auto px-4 py-10">
+          <h1 className="font-medium leading-10 mb-4 text-[#171717] text-[32px]">
             {iconSet.name.toLowerCase().includes("icon")
               ? iconSet.name
               : `${iconSet.name} Icons`}{" "}
             Directory
           </h1>
-          <div className="bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] bg-[length:400%_100%] mb-4 lg:mb-0 rounded-md w-full h-5 animate-skeleton"></div>
+          <div className="animate-skeleton bg-[length:400%_100%] bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] h-5 lg:mb-0 mb-4 rounded-md w-full"></div>
         </div>
       </div>
-      <div className="mx-auto px-4 py-6 max-w-screen-lg">
-        <div className="flex bg-white rounded-md h-10 transition-[box-shadow] duration-200 overflow-hidden shadow-[0px_0px_0px_1px_#00000014] hover:shadow-[0px_0px_0px_1px_#00000029]">
-          <label className="flex items-center px-3 h-full" htmlFor="search">
+      <div className="max-w-screen-lg mx-auto px-4 py-6">
+        <div className="bg-white duration-200 flex h-10 hover:shadow-[0px_0px_0px_1px_#00000029] overflow-hidden rounded-md shadow-[0px_0px_0px_1px_#00000014] transition-[box-shadow]">
+          <label className="flex h-full items-center px-3" htmlFor="search">
             <svg
               className="text-[#8f8f8f]"
               height="16"
@@ -31,7 +31,7 @@ export default function OtherDirectoryFallback({ iconSet }) {
             </svg>
           </label>
           <input
-            className="flex-1 pr-3 h-full text-[#171717] focus:outline-0"
+            className="flex-1 focus:outline-0 h-full pr-3 text-[#171717]"
             type="text"
             id="search"
             name="search"
@@ -39,15 +39,15 @@ export default function OtherDirectoryFallback({ iconSet }) {
             autoComplete="off"
           />
         </div>
-        <div className="gap-3 grid grid-cols-4 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 mt-3">
+        <div className="gap-3 grid grid-cols-4 lg:grid-cols-12 md:grid-cols-10 mt-3 sm:grid-cols-8">
           {Array.from({ length: 120 }).map((_, index) => (
             <div
-              className="bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] bg-[length:400%_100%] rounded-md h-14 animate-skeleton"
+              className="animate-skeleton bg-[length:400%_100%] bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] h-14 rounded-md"
               key={index}
             ></div>
           ))}
         </div>
-        <div className="bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] bg-[length:400%_100%] mt-3 rounded-md h-10 animate-skeleton"></div>
+        <div className="animate-skeleton bg-[length:400%_100%] bg-[linear-gradient(270deg,#fafafa,#eaeaea,#eaeaea,#fafafa)] h-10 mt-3 rounded-md"></div>
       </div>
     </main>
   );

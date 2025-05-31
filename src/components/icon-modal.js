@@ -9,12 +9,13 @@ export default function IconModal() {
   const { iconModalOpen, setIconModalOpen, clickedItem } = useContext(Context);
 
   const [JSXCopied, setJSXCopied] = useState(false);
-  
+
   const handleJSXCopy = async () => {
     try {
       await navigator.clipboard.writeText(clickedItem.JSX);
 
       setJSXCopied(true);
+
       setTimeout(() => setJSXCopied(false), 1000);
     } catch {
       console.log("Failed to copy");
@@ -28,6 +29,7 @@ export default function IconModal() {
       await navigator.clipboard.writeText(clickedItem.HTML);
 
       setHTMLCopied(true);
+
       setTimeout(() => setHTMLCopied(false), 1000);
     } catch {
       console.log("Failed to copy");
@@ -37,36 +39,36 @@ export default function IconModal() {
   return (
     <>
       <div
-        className={`top-0 left-0 z-30 fixed bg-[#0006] sm:bg-white w-full h-full transition-opacity duration-200 ${
+        className={`bg-[#0006] duration-200 fixed h-full left-0 sm:bg-white top-0 transition-opacity w-full z-30 ${
           iconModalOpen ? "sm:opacity-80" : "opacity-0 pointer-events-none"
         }`}
         onClick={() => setIconModalOpen(false)}
       ></div>
       <div
-        className={`sm:block top-1/2 left-1/2 z-40 fixed hidden bg-white shadow-[0px_0px_0px_1px_#00000014,0px_1px_1px_0px_#00000005,0px_4px_8px_-4px_#0000000a,0px_16px_24px_-8px_#0000000f] rounded-xl w-[500px] h-fit max-h-[min(520px,75%)] transition-[opacity,transform] -translate-x-1/2 -translate-y-1/2 duration-200 overflow-auto ${
+        className={`-translate-x-1/2 -translate-y-1/2 bg-white duration-200 fixed h-fit hidden left-1/2 max-h-[min(520px,75%)] overflow-auto rounded-xl shadow-[0px_0px_0px_1px_#00000014,0px_1px_1px_0px_#00000005,0px_4px_8px_-4px_#0000000a,0px_16px_24px_-8px_#0000000f] sm:block top-1/2 transition-[opacity,transform] w-[500px] z-40 ${
           iconModalOpen ? "" : "opacity-0 pointer-events-none scale-90"
         }`}
       >
         <div className="p-6">
-          <h2 className="mb-6 font-semibold text-[#171717] text-2xl">
+          <h2 className="font-semibold mb-6 text-[#171717] text-2xl">
             {clickedItem.iconName}
           </h2>
-          <div className="flex justify-center items-center border-[#00000014] mb-6 border rounded-lg h-24 text-[#171717] text-3xl">
+          <div className="border border-[#00000014] flex h-24 items-center justify-center mb-6 rounded-lg text-[#171717] text-3xl">
             {parse(clickedItem.HTML)}
           </div>
           <span className="text-[#7d7d7d]">JSX</span>
-          <div className="flex justify-between gap-x-2 border-[#00000014] mt-2 mb-6 pl-3 border rounded-md h-10">
+          <div className="border border-[#00000014] flex gap-x-2 h-10 justify-between mb-6 mt-2 pl-3 rounded-md">
             <pre
-              className={`flex items-center h-full text-[13px] overflow-auto scrollbar-hide ${geistMono.className}`}
+              className={`flex h-full items-center overflow-auto scrollbar-hide text-[13px] ${geistMono.className}`}
             >
               {clickedItem.JSX}
             </pre>
             <button
-              className="cursor-pointer relative flex items-center px-3 h-full"
+              className="cursor-pointer flex h-full items-center px-3 relative"
               onClick={handleJSXCopy}
             >
               <svg
-                className={`transition-[opacity,transform] duration-200 ${
+                className={`duration-200 transition-[opacity,transform] ${
                   JSXCopied ? "" : "opacity-0 scale-50"
                 }`}
                 height="16"
@@ -82,7 +84,7 @@ export default function IconModal() {
                 ></path>
               </svg>
               <svg
-                className={`absolute transition-[opacity,transform] duration-200 ${
+                className={`absolute duration-200 transition-[opacity,transform] ${
                   JSXCopied ? "opacity-0 scale-50" : ""
                 }`}
                 height="16"
@@ -100,18 +102,18 @@ export default function IconModal() {
             </button>
           </div>
           <span className="text-[#7d7d7d]">HTML</span>
-          <div className="flex justify-between gap-x-2 border-[#00000014] mt-2 pl-3 border rounded-md h-10">
+          <div className="border border-[#00000014] flex gap-x-2 h-10 justify-between mt-2 pl-3 rounded-md">
             <pre
-              className={`flex items-center h-full text-[13px] overflow-auto scrollbar-hide ${geistMono.className}`}
+              className={`flex h-full items-center overflow-auto scrollbar-hide text-[13px] ${geistMono.className}`}
             >
               {clickedItem.HTML}
             </pre>
             <button
-              className="cursor-pointer relative flex items-center px-3 h-full"
+              className="cursor-pointer flex h-full items-center px-3 relative"
               onClick={handleHTMLCopy}
             >
               <svg
-                className={`transition-[opacity,transform] duration-200 ${
+                className={`duration-200 transition-[opacity,transform] ${
                   HTMLCopied ? "" : "opacity-0 scale-50"
                 }`}
                 height="16"
@@ -127,7 +129,7 @@ export default function IconModal() {
                 ></path>
               </svg>
               <svg
-                className={`absolute transition-[opacity,transform] duration-200 ${
+                className={`absolute duration-200 transition-[opacity,transform] ${
                   HTMLCopied ? "opacity-0 scale-50" : ""
                 }`}
                 height="16"
@@ -147,30 +149,30 @@ export default function IconModal() {
         </div>
       </div>
       <div
-        className={`-bottom-px left-0 z-40 fixed sm:hidden bg-white shadow-[0px_0px_0px_1px_#00000014,0px_1px_1px_0px_#00000005,0px_4px_8px_-4px_#0000000a,0px_16px_24px_-8px_#0000000f] rounded-t-lg w-full h-fit max-h-[min(520px,75%)] transition-transform duration-200 overflow-auto ${
+        className={`-bottom-px bg-white duration-200 fixed h-fit left-0 max-h-[min(520px,75%)] overflow-auto rounded-t-lg shadow-[0px_0px_0px_1px_#00000014,0px_1px_1px_0px_#00000005,0px_4px_8px_-4px_#0000000a,0px_16px_24px_-8px_#0000000f] sm:hidden transition-transform w-full z-40 ${
           iconModalOpen ? "" : "translate-y-full"
         }`}
       >
         <div className="p-6">
-          <h2 className="mb-6 font-semibold text-[#171717] text-2xl">
+          <h2 className="font-semibold mb-6 text-[#171717] text-2xl">
             {clickedItem.iconName}
           </h2>
-          <div className="flex justify-center items-center border-[#00000014] mb-6 border rounded-lg h-24 text-[#171717] text-4xl">
+          <div className="border border-[#00000014] flex h-24 items-center justify-center mb-6 rounded-lg text-[#171717] text-4xl">
             {parse(clickedItem.HTML)}
           </div>
           <span className="text-[#7d7d7d]">JSX</span>
-          <div className="flex justify-between gap-x-2 border-[#00000014] mt-2 mb-6 pl-3 border rounded-md h-10">
+          <div className="border border-[#00000014] flex gap-x-2 h-10 justify-between mb-6 mt-2 pl-3 rounded-md">
             <pre
-              className={`flex items-center h-full text-[13px] overflow-auto scrollbar-hide ${geistMono.className}`}
+              className={`flex h-full items-center overflow-auto scrollbar-hide text-[13px] ${geistMono.className}`}
             >
               {clickedItem.JSX}
             </pre>
             <button
-              className="cursor-pointer relative flex items-center px-3 h-full"
+              className="cursor-pointer flex h-full items-center px-3 relative"
               onClick={handleJSXCopy}
             >
               <svg
-                className={`absolute transition-[opacity,transform] duration-200 ${
+                className={`absolute duration-200 transition-[opacity,transform] ${
                   JSXCopied ? "" : "opacity-0 scale-50"
                 }`}
                 height="16"
@@ -186,7 +188,7 @@ export default function IconModal() {
                 ></path>
               </svg>
               <svg
-                className={`transition-[opacity,transform] duration-200 ${
+                className={`duration-200 transition-[opacity,transform] ${
                   JSXCopied ? "opacity-0 scale-50" : ""
                 }`}
                 height="16"
@@ -204,18 +206,18 @@ export default function IconModal() {
             </button>
           </div>
           <span className="text-[#7d7d7d]">HTML</span>
-          <div className="flex justify-between gap-x-2 border-[#00000014] mt-2 pl-3 border rounded-md h-10">
+          <div className="border border-[#00000014] flex gap-x-2 h-10 justify-between mt-2 pl-3 rounded-md">
             <pre
-              className={`flex items-center h-full text-[13px] overflow-auto scrollbar-hide ${geistMono.className}`}
+              className={`flex h-full items-center overflow-auto scrollbar-hide text-[13px] ${geistMono.className}`}
             >
               {clickedItem.HTML}
             </pre>
             <button
-              className="cursor-pointer relative flex justify-center items-center px-3 h-full"
+              className="cursor-pointer flex h-full items-center justify-center px-3 relative"
               onClick={handleHTMLCopy}
             >
               <svg
-                className={`absolute transition-[opacity,transform] duration-200 ${
+                className={`absolute duration-200 transition-[opacity,transform] ${
                   HTMLCopied ? "" : "opacity-0 scale-50"
                 }`}
                 height="16"
@@ -231,7 +233,7 @@ export default function IconModal() {
                 ></path>
               </svg>
               <svg
-                className={`transition-[opacity,transform] duration-200 ${
+                className={`duration-200 transition-[opacity,transform] ${
                   HTMLCopied ? "opacity-0 scale-50" : ""
                 }`}
                 height="16"
